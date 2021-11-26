@@ -1,0 +1,128 @@
+
+* {
+  box-sizing: border-box;
+
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  background:#70F518;
+  line-height: 1.6;
+  background: url(../image/background.jpg)no-repeat center rgba(64, 124, 235, 0.972);
+  overflow: hidden;
+
+}
+
+#header {
+font-weight: 700;
+font-size: 30px;
+color: #E25727;
+background:#DDE227;
+
+}
+.ui.card {
+  position: absolute;
+}
+
+/* Quiz */
+h1 {
+  margin-top: 5px;
+  text-align:center;
+  font-weight: 200;
+}
+
+p {
+  font-size: 18px;
+  font-weight: bold;
+}
+i{
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+}
+aside.i{
+  font-size: 10px;
+  font-weight: bold;
+  color: blue;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+}
+body {
+  text-align:center;
+  border-radius: 20px;
+
+}
+
+#radioBtnAlternatives {
+  font-weight: 400;
+  display: block;
+  color:#EF18F5;
+  padding: 8px;
+  margin-bottom: 6px;
+
+}
+
+#answerSection {
+  text-align: center;
+}
+
+.radios {
+  padding: 50px;
+  font-size: 20px;
+
+}
+
+input[type=text] {
+  display: block;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 5px rgb(0, 0, 0);
+  box-sizing: border-box;
+  padding: rgb(255, 0, 0);px;
+}
+
+
+#btn {
+  margin-bottom: 5px;
+  padding: 5px;
+  color: blue;
+}
+
+#timer {
+  font-size: 20px;
+  color: green;
+}
+/* memory game */
+
+h1 {
+  margin-top: 11px;
+  text-align:center;
+}
+#memory-images img {
+  height: 55px;
+  width: 55px;
+}
+
+#memory-images .removed {
+  visibility: hidden
+}
+
+#timer {
+  text-align: center
+}
+
+/* chat */
+
+.ui.form textarea:not([rows]) {
+  height: 4em;
+  min-height: 1em;
+  max-height: 4em;
+}
+
+#chat-messagesList {
+  overflow: auto;
+  height: 200px;
+}

@@ -1,3 +1,6 @@
+/* eslint-disable jsdoc/match-description */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-expressions */
 console.log('chat')
 const template = document.createElement('template')
 template.innerHTML = `
@@ -44,7 +47,7 @@ template.innerHTML = `
 `
 
 class Chat extends window.HTMLElement {
-  constructor() {
+  constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     // The Node.cloneNode() method returns a duplicate of the node on which this method was called.
@@ -66,7 +69,6 @@ class Chat extends window.HTMLElement {
     this.messageInput = this.shadowRoot.querySelector('#chat-msg-input')
     this.messages = null
 
-
     /**
      * checks first local storage and gets available
      * user Otherwise user empty string
@@ -77,20 +79,21 @@ class Chat extends window.HTMLElement {
     // socket for conneting the users
     this.socket = null
   }
-  static get observedAttributes() {
+
+  static get observedAttributes () {
     return ['']
   }
-  changedAttributeCB(name, newValue) {
+
+  changedAttributeCB (name, newValue) {
     changedAttributeCB
   }
-
 
   /**
    * connects the available user with the storage
    * if storage is empty then ask user to enter a UserName
    *
    */
-  connectedCallback() {
+  connectedCallback () {
     this.addEventToElements()
     if (this.username === '') {
       this.welcomeScreen()
@@ -98,25 +101,29 @@ class Chat extends window.HTMLElement {
       this.showChatWindow()
     }
   }
+
   // This welcome screen displaying and hide at start up
-  welcomeScreen() {
+  welcomeScreen () {
     this.messagesChatDiv.style.display = 'none'
     this.messageList.style.display = 'none'
     this._welcomeMsgDiv.style.display = ''
   }
+
   // this dispplays and hides existing channel
-  showChatWindow() {
+  showChatWindow () {
     this._welcomeMsgDiv.style.display = 'none'
     this.messagesChatDiv.style.display = ''
     this.messageList.style.display = ''
     this.showMessagesList()
   }
+
   /**
+   // eslint-disable-next-line jsdoc/match-description
    * StoreUser is saves the user detail into local storage
    */
-  storeUser() {
-    let username = ('' + this._userName.value).trim()
-    let channel = ('' + this._chatChannel.value).trim()
+  storeUser () {
+    const username = ('' + this._userName.value).trim()
+    const channel = ('' + this._chatChannel.value).trim()
     if (username.length > 0) {
       window.localStorage.setItem('user', JSON.stringify({
         username: (this.username = username),
@@ -129,12 +136,12 @@ class Chat extends window.HTMLElement {
    * A heartbeat message is sent from web socket server
    */
 
-  showMessage(response) {
+  showMessage (response) {
     if (response.type !== 'heartbeat') {
       // template show message for each new message
-      let templateShowMsgDiv = this.shadowRoot.querySelectorAll('#chat-msg-List template')[0].content.firstElementChild
+      const templateShowMsgDiv = this.shadowRoot.querySelectorAll('#chat-msg-List template')[0].content.firstElementChild
 
-      let message = document.importNode(templateShowMsgDiv, true)
+      const message = document.importNode(templateShowMsgDiv, true)
       // iterating over all children
       Array.prototype.forEach.call(message.children[0].children, child => {
         // Assign values to each switch cases and checks all elements with t
@@ -150,7 +157,7 @@ class Chat extends window.HTMLElement {
     }
   }
 
-  showMessagesList() {
+  showMessagesList () {
     // connets to server
     if (this.socket === null) {
       this.connect()
@@ -158,7 +165,7 @@ class Chat extends window.HTMLElement {
     }
   }
 
-  sendText(event) {
+  sendText (event) {
     if (event.keyCode === 13) {
       this.socket.send(JSON.stringify({
         // data property is used to send message
@@ -174,8 +181,9 @@ class Chat extends window.HTMLElement {
       event.preventDefault()
     }
   }
+
   // message is showing by the server
-  connect() {
+  connect () {
     return new Promise((resolve, reject) => {
       this.socket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
       this.socket.onopen = () => resolve(this.socket)
@@ -183,14 +191,16 @@ class Chat extends window.HTMLElement {
       this.socket.onmessage = (event) => this.showMessage(JSON.parse(event.data))
     })
   }
+
   // ending the connection
-  close() {
+  close () {
     if (this.socket !== null) {
       this.socket.close()
     }
     this._application.remove()
   }
-  addEventToElements() {   // close and input handling
+
+  addEventToElements () { // close and input handling
     this._close = this.shadowRoot.querySelector('#chat-close')
     this._close.addEventListener('click', this.close.bind(this))
     this.doneBtn.addEventListener('click', this.storeUser.bind(this))

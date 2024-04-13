@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 
 import './js/chat'
 import './js/quiz-app'
@@ -7,7 +8,7 @@ import './js/memoryGame'
  * HandlerImport handling the apps imports to index html
  * event.target.tagName switches when the user click.
  */
- let count = 0
+let count = 0
 const HandlerImport = () => {
   document.querySelector('nav').addEventListener('click', event => {
     if (event.target.tagName === 'I') {
@@ -16,32 +17,35 @@ const HandlerImport = () => {
     }
     switch (event.target.id) {
       case 'quiz':
-        let quizApp = document.createElement('quiz-app')
+        // eslint-disable-next-line no-case-declarations
+        const quizApp = document.createElement('quiz-app')
         addDragAndDrop(quizApp.shadowRoot.querySelector('#quiz-app'))
         document.querySelector('#main').appendChild(quizApp)
         break
       case 'memory':
-        let memoryApp = document.createElement('memory-app')
+        // eslint-disable-next-line no-case-declarations
+        const memoryApp = document.createElement('memory-app')
         document.querySelector('#main').appendChild(memoryApp)
         addDragAndDrop(memoryApp.shadowRoot.querySelector('#memory-app'))
         break
 
       case 'chat':
-        let chatApp = document.createElement('chat-app')
+        // eslint-disable-next-line no-case-declarations
+        const chatApp = document.createElement('chat-app')
         addDragAndDrop(chatApp.shadowRoot.querySelector('#chat-app'))
         document.querySelector('#main').appendChild(chatApp)
         break
-
     }
   })
 }
 
 const addDragAndDrop = (app) => {
-  let pos1 ,pos2, pos3, pos4 = 0 // postion of the dragged app
+  let pos1; let pos2; let pos3; let pos4 = 0 // postion of the dragged app
   app.onmousedown = dragMouse
 
-  function dragMouse(e) {
-    app.style.ind = count++  // ind++ just to increase the index so that the window is focused
+  // eslint-disable-next-line jsdoc/require-jsdoc
+  function dragMouse (e) {
+    app.style.ind = count++ // ind++ just to increase the index so that the window is focused
     e = e || window.event
     // mouse cursor position at startup
     pos3 = e.clientX
@@ -51,7 +55,7 @@ const addDragAndDrop = (app) => {
   }
 
   // when the section is dragged, update position
-  function elementDrag(e) {
+  function elementDrag (e) {
     e = e || window.event
     e.preventDefault()
     // acount the new cursor of the position mouse
@@ -63,7 +67,7 @@ const addDragAndDrop = (app) => {
     app.style.top = (app.offsetTop - pos2) + 'px'
     app.style.left = (app.offsetLeft - pos1) + 'px'
   }
-  function closeDragElement() { // dragMouse will stop moving when mouse is released
+  function closeDragElement () { // dragMouse will stop moving when mouse is released
     document.onmouseup = null
     document.onmousemove = null
   }

@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/valid-types */
+/* eslint-disable jsdoc/require-jsdoc */
 const template = document.createElement('template')
 template.innerHTML = `
 <side id="memory-app" class="ui card">
@@ -22,14 +24,13 @@ template.innerHTML = `
 </aside>
 `
 
-class Memory extends window.HTMLElement {   /**
-   * create memory class and constructor ,,, Object Oriented
+class Memory extends window.HTMLElement { /* create memory class and constructor ,,, Object Oriented
    */
-  /**
+  /*
    * @param  {} {super(
    * @param  {'open'}} this.attachShadow({mode
    */
-  constructor() {
+  constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
@@ -40,29 +41,31 @@ class Memory extends window.HTMLElement {   /**
     this._hideImgs = this.shadowRoot.querySelector('#memory-images')
     this.titles = []
   }
-  /**
-   */
-  static get obsAttributes() {
+
+  static get obsAttributes () {
     return ['']
   }
-  /**
+
+  /*
    * @param  {} {this.addEventToElements(
    * @param  {} this.buildMemoryBody(4
    * @param  {} 4
    * @param  {} this._imgs
    */
-  connectedCallback() {
+  connectedCallback () {
     this.addEventToElements()
     this.buildMemoryBody(4, 4, this._imgs)
   }
-  changedAttributeCB(name, newValue) {
+
+  changedAttributeCB (name, newValue) {
   }
-  /**
+
+  /*
    * @param  {} rows
    * @param  {} columns
    * @param  {} container
    */
-  buildMemoryBody(rows, columns, container) {
+  buildMemoryBody (rows, columns, container) {
     var a, turn1, turn2, lastTitle
     var pairs = 0
     var tries = 0
@@ -82,18 +85,17 @@ class Memory extends window.HTMLElement {   /**
      * Import template index file at 0 p.
      * and keep separet each memory game from each other
      */
-    let templateIndex = this.shadowRoot.querySelectorAll('#memory-images template')[0].content.firstElementChild
-    let div = document.importNode(templateIndex, false)
-/**
- *
- * Winer and game over related features
- *
- */
+    const templateIndex = this.shadowRoot.querySelectorAll('#memory-images template')[0].content.firstElementChild
+    const div = document.importNode(templateIndex, false)
+    /**
+     *
+     * Winer and game over related features
+     *
+     */
 
-
-    let title = this.shadowRoot.querySelector('h1')
+    const title = this.shadowRoot.querySelector('h1')
     title.innerText = '35 seconds to select the correct answers'
-    let timer = this.shadowRoot.querySelector('#timer')
+    const timer = this.shadowRoot.querySelector('#timer')
     timer.textContent = (countdown = totalTime)
     interval = setInterval(() => {
       timer.textContent = --countdown
@@ -131,13 +133,12 @@ class Memory extends window.HTMLElement {   /**
       }
     })
     container.appendChild(div)
-    /**
-     * @param  {} tile
+    /* @param  {} tile
      * @param  {} index
      * @param  {} img
      * @param  {} {if(turn2
      */
-    function turnBrick(tile, index, img) {
+    function turnBrick (tile, index, img) {
       if (turn2) { return }
       img.src = 'image/' + tile + '.png'
       // firts brick image is clicked
@@ -182,11 +183,11 @@ class Memory extends window.HTMLElement {   /**
     }
   }
 
-  hideTextbox() {
+  hideTextbox () {
     this._hideImgs.style.display = 'none'
   }
 
-  getImagesFromArray(rows, columns) {
+  getImagesFromArray (rows, columns) {
     var array = []
     var i
     // puts an image twice in the array
@@ -204,11 +205,11 @@ class Memory extends window.HTMLElement {   /**
     return array
   }
 
-  close() {
+  close () {
     this._application.remove()
   }
 
-  addEventToElements() {
+  addEventToElements () {
     this._close = this.shadowRoot.querySelector('#quizAppTerminate')
     this._close.addEventListener('click', this.close.bind(this))
   }

@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable space-before-function-paren */
 /* eslint-disable jsdoc/match-description */
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/check-param-names */
@@ -19,7 +21,7 @@ template.innerHTML = `
 
   <aside id="header" class="content">
   <i class="question circle icon"></i>Quiz App
-  <i  id="quizAppTerminate" class=" right floated window close outline icon"></i>
+  <i id="quizAppTerminate" class="right floated window close outline icon"></i>
   </aside>
   <aside id="quiz-content">
     <h1></h1>
@@ -50,14 +52,13 @@ template.innerHTML = `
         </ol>
       </aside>
       <aside id="game-over">
-        <button id="restart-btn">Close</button>
+        <!-- Removed the close button -->
       </aside>
     <button id="btn" type="button"></button>
     </form>
   </aside>
 </aside>
 `
-
 class Quiz extends window.HTMLElement {
   constructor () {
     super()
@@ -89,11 +90,11 @@ class Quiz extends window.HTMLElement {
     this._app = this.shadowRoot.querySelector('#quiz-app')
   }
 
-  static get observedAttributes () {
+  static get observedAttributes() {
     return ['src']
   }
 
-  attributeChangedCallback (name, oldValue, newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'src') {
       this._url = newValue
     }
@@ -110,21 +111,21 @@ class Quiz extends window.HTMLElement {
    * @param  {} }
    * @param  {} this.addEventToElements(
    */
-  connectedCallback () {
-    this.welcomeScreen()
-    this._button.addEventListener('click', async e => {
+  connectedCallback() {
+    this.welcomeScreen();
+    this._button.addEventListener('click', async (e) => {
       if (this.isfirstQuestion) {
-        this.getUsername()
-        this.updateQuestionView()
-        return
+        this.getUsername();
+        this.updateQuestionView();
+        return;
       }
-      this.getAnswer()
-      this.getResponse()
-    })
-    this.addEventToElements()
+      this.getAnswer();
+      this.getResponse();
+    });
+    this.addEventToElements(); // Add this line
   }
 
-  async updateQuestionView () {
+  async updateQuestionView() {
     this.response = await this.loadUrl()
     this._question.innerText = this.response.question
     if (this.response.alternatives) {
@@ -138,7 +139,7 @@ class Quiz extends window.HTMLElement {
   // The Node.cloneNode() method returns a duplicate of the node on which this method was called.
 
   // if there are multiple choice or alternavtive a the end of the documents
-  async loadUrl (url) {
+  async loadUrl(url) {
     let fetcher = await window.fetch(`${this._url}`)
     fetcher = await fetcher.json()
     if (fetcher.nextURL) {
@@ -160,7 +161,7 @@ class Quiz extends window.HTMLElement {
    * @param  {{'Content-Type':'application/json;charset=utf-8'}} headers
    * @param  {JSON.stringify({answer:this.userAnswer}} body
    */
-  getResponse () {
+  getResponse() {
     this.stopTimer()
     return window.fetch(`${this.response.nextURL}`, {
       method: 'POST',
@@ -196,7 +197,7 @@ class Quiz extends window.HTMLElement {
    *
    *
    */
-  getAnswer () {
+  getAnswer() {
     if (this.response.alternatives) {
       const parent = this.shadowRoot.querySelector('#radioBtnAlternatives').children
       Array.from(parent).some((element) => {
@@ -214,7 +215,7 @@ class Quiz extends window.HTMLElement {
   /**
    * @param  {} {this._header.style.display=''this.hideAlternatives(
    */
-  welcomeScreen () {
+  welcomeScreen() {
     this._header.style.display = ''
     this.hideAlternatives()
     this._reset.style.display = 'none'
@@ -227,28 +228,28 @@ class Quiz extends window.HTMLElement {
   // eslint-disable-next-line jsdoc/require-description
   /**
    */
-  getUsername () {
+  getUsername() {
     this.username = this._inputText.value
     this._title.innerText = `${this.username} is Playing!`
     this.isfirstQuestion = false
   }
 
-  clearBox () {
+  clearBox() {
     this._inputText.value = ''
   }
 
-  hideAlternatives () {
+  hideAlternatives() {
     const parent = this.shadowRoot.querySelector('#radioBtnAlternatives')
     Array.from(parent.children).forEach((radio) => {
       radio.style.display = 'none'
     })
   }
 
-  hideTextbox () {
+  hideTextbox() {
     this._inputText.style.display = 'none'
   }
 
-  showTextbox () {
+  showTextbox() {
     this._inputText.style.display = 'block'
     this.hideAlternatives()
   }
@@ -269,7 +270,7 @@ class Quiz extends window.HTMLElement {
    * @param  {} this.hideTextbox(
    */
 
-  showAlternatives () {
+  showAlternatives() {
     let showRadio = this.shadowRoot.querySelector('#radioLabel1')
     showRadio.style.display = ''
     showRadio.innerText = this.response.alternatives.alt1
@@ -301,7 +302,7 @@ class Quiz extends window.HTMLElement {
 
   //  when you answered all the question then socre board
   // will be displayed
-  gameOver () {
+  gameOver() {
     this.stopTimer()
     if (!this.response.nextURL) {
       this.getScoreBoard()
@@ -321,7 +322,7 @@ class Quiz extends window.HTMLElement {
   // hide the score board until the user wins the game
   // if the user answer all the question. the user total time, high-score list with 5 fastest time
   // will be displayed. all of these files are stored in local storage
-  getScoreBoard () {
+  getScoreBoard() {
     // hide all unnecessary stuff
     this._title.innerText = `${this.username} Finished!`
     this.hideAlternatives()
@@ -344,7 +345,7 @@ class Quiz extends window.HTMLElement {
     window.localStorage.setItem('users', JSON.stringify(users))
   }
 
-  startTimer () {
+  startTimer() {
     this._timer.textContent = (this.countdown = this.totalTime)
     this._interval = setInterval(() => {
       this._timer.textContent = --this.countdown
@@ -355,17 +356,9 @@ class Quiz extends window.HTMLElement {
   }
 
   // stops the timmer, for infinite looping
-  stopTimer () {
+  stopTimer() {
     clearInterval(this._interval)
     this.timeUsed += this.totalTime - this.countdown
-  }
-
-  close () {
-    if (this._interval !== null) {
-      this.stopTimer()
-    }
-
-    this._app.remove()
   }
 
   /**
@@ -374,9 +367,17 @@ class Quiz extends window.HTMLElement {
    // eslint-disable-next-line jsdoc/require-param-description, jsdoc/require-param-description
    * @param  {} this.close.bind(this
    */
-  addEventToElements () {
-    this._close = this.shadowRoot.querySelector('#quizAppTerminate')
-    this._close.addEventListener('click', this.close.bind(this))
+
+  close() {
+    if (this._interval !== null) {
+      this.stopTimer();
+    }
+    this._app.remove();
+  }
+
+  addEventToElements() {
+    this._close = this.shadowRoot.querySelector('#quizAppTerminate');
+    this._close.addEventListener('click', () => this.close());
   }
 }
 

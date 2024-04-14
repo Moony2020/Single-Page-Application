@@ -1,24 +1,25 @@
-
 * {
   box-sizing: border-box;
 
 }
+
 body {
   font-family: "Open Sans", sans-serif;
-  background:#70F518;
+  background: #70F518;
   line-height: 1.6;
-  background: url(../image/background.jpg)no-repeat center rgba(64, 124, 235, 0.972);
+  background: url(../image/background.png)no-repeat center rgba(64, 124, 235, 0.972);
   overflow: hidden;
 
 }
 
 #header {
-font-weight: 700;
-font-size: 30px;
-color: #E25727;
-background:#DDE227;
+  font-weight: 700;
+  font-size: 30px;
+  color: #E25727;
+  background: #DDE227;
 
 }
+
 .ui.card {
   position: absolute;
 }
@@ -26,7 +27,7 @@ background:#DDE227;
 /* Quiz */
 h1 {
   margin-top: 5px;
-  text-align:center;
+  text-align: center;
   font-weight: 200;
 }
 
@@ -34,12 +35,14 @@ p {
   font-size: 18px;
   font-weight: bold;
 }
-i{
+
+i {
   font-size: 18px;
   font-weight: bold;
   color: blue;
 }
-aside.i{
+
+aside.i {
   font-size: 10px;
   font-weight: bold;
   color: blue;
@@ -49,8 +52,9 @@ label {
   font-size: 16px;
   font-weight: 600;
 }
+
 body {
-  text-align:center;
+  text-align: center;
   border-radius: 20px;
 
 }
@@ -58,7 +62,7 @@ body {
 #radioBtnAlternatives {
   font-weight: 400;
   display: block;
-  color:#EF18F5;
+  color: #EF18F5;
   padding: 8px;
   margin-bottom: 6px;
 
@@ -68,12 +72,17 @@ body {
   text-align: center;
 }
 
-.radios {
-  padding: 50px;
-  font-size: 20px;
-
+/* Highlight selected radio button */
+input[type="radio"]:checked+label {
+  background-color: #ccc;
 }
 
+.radios {
+  padding: 8px;
+  /* Adjust padding as needed */
+}
+
+/* Add a border to the input text field */
 input[type=text] {
   display: block;
   margin: auto;
@@ -81,9 +90,11 @@ input[type=text] {
   margin-bottom: 22px;
   box-shadow: 0 2px 5px rgb(0, 0, 0);
   box-sizing: border-box;
-  padding: rgb(255, 0, 0);px;
-}
+  padding: 5px;
+  border: 2px solid #000;
+  border-radius: 10px;
 
+}
 
 #btn {
   margin-bottom: 5px;
@@ -95,12 +106,14 @@ input[type=text] {
   font-size: 20px;
   color: green;
 }
+
 /* memory game */
 
 h1 {
   margin-top: 11px;
-  text-align:center;
+  text-align: center;
 }
+
 #memory-images img {
   height: 55px;
   width: 55px;

@@ -320,6 +320,8 @@ class Quiz extends window.HTMLElement {
    */
   addEventToElements () {
     this._close = this.shadowRoot.querySelector('#quizAppTerminate')
-    this._close.addEventListener('click', this.close.bind(this))
+    this._close.addEventListener('click', () => {
+      this.close()
+    })
   }
 }

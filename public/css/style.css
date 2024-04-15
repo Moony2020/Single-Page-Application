@@ -60,11 +60,8 @@ body {
 }
 
 #radioBtnAlternatives {
-  font-weight: 400;
-  display: block;
   color: #EF18F5;
   padding: 8px;
-  margin-bottom: 6px;
 
 }
 
@@ -93,7 +90,12 @@ input[type=text] {
   padding: 5px;
   border: 2px solid #000;
   border-radius: 10px;
+}
 
+#radioBtnAlternatives {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 #btn {
